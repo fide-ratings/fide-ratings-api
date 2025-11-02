@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:17
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: fide_ratings
+      POSTGRES_USER: sanjar
+      POSTGRES_PASSWORD: your_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data  
+
+  app:
+    build: .
+    container_name: fide_ratings_api
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/fide_ratings
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: your_password
+    ports:
+      - "8080:8080"
