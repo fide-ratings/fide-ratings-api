@@ -15,6 +15,6 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("FIDE Ratings API")
                         .version("1.0")
-                        .description("API for retrieving FIDE chess players and rankings"));
+                        .description("API for retrieving FIDE ratings of chess players"));
     }
 }

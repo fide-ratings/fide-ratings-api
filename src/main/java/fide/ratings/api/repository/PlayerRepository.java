@@ -21,7 +21,7 @@ public class PlayerRepository {
     private JdbcTemplate jdbcTemplate;
 
     public Player getPlayerByFideId(Long id) {
-        String sql = "SELECT * FROM fide_ratings WHERE fide_id = ?";
+        String sql = "SELECT * FROM players WHERE fide_id = ?";
         
         try {
             return jdbcTemplate.queryForObject(sql, new PlayerRowMapper(), id);
@@ -31,12 +31,12 @@ public class PlayerRepository {
     }
 
     public List<Player> getPlayerByName(String name) {
-        String sql = "SELECT fr.* FROM fide_ratings fr JOIN player_names_fts fts ON fr.fide_id = fts.fide_id WHERE fts.name MATCH ?";
+        String sql = "SELECT fr.* FROM players fr JOIN player_names_fts fts ON fr.fide_id = fts.fide_id WHERE fts.name MATCH ?";
         return jdbcTemplate.query(sql, new PlayerRowMapper(), name);
     }
 
     public List<Player> getTopPlayers(int limit, Countries country, RatingTypes ratingType, Gender gender, Flag flag) {
-        StringBuilder sql = new StringBuilder("SELECT * FROM fide_ratings WHERE 1=1");
+        StringBuilder sql = new StringBuilder("SELECT * FROM players WHERE 1=1");
         List<Object> params = new ArrayList<>();
 
         // filter for country
