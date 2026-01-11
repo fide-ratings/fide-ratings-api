@@ -31,7 +31,7 @@ public class PlayerRepository {
     }
 
     public List<Player> getPlayerByName(String name) {
-        String sql = "SELECT fr.* FROM players fr JOIN player_names_fts fts ON fr.fide_id = fts.fide_id WHERE fts.name MATCH ?";
+        String sql = "SELECT * FROM players WHERE to_tsvector('simple', name) @@ to_tsquery('simple', ?);";
         return jdbcTemplate.query(sql, new PlayerRowMapper(), name);
     }
 

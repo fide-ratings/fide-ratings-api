@@ -14,3 +14,7 @@
 
 .vscode/
 .code-workspace
+
+## env files
+.env
+*.env
